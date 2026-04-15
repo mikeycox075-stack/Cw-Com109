@@ -24,6 +24,7 @@
 .dropdown {
   position: relative;
 }
+
 /* setting up buttons */
 .Button_Nav_Drop_Down {
   font-size: 25px;
@@ -39,6 +40,7 @@
 .Button_Nav_Drop_Down:hover {
   background: grey;
 }
+
 .Drop_down_content {
   display: none;
   position: absolute;
@@ -63,10 +65,17 @@
 }
 .Drop_down_content a:hover { background-color: Grey; }
 #Logo {
-height: 40px;
+  padding-right: 30px;
+height: 90px;
 width: auto;
 display: inline-block;
 }
+
+.Button a:hover{
+  background-color: Grey;
+  outline-color: #63bcbe;
+}
+
 /* Navbar End */
 
 /* Main Body content */
@@ -101,18 +110,37 @@ p {
 /* End of main body content */
 
 /* Buttons */
+
+.loginButton{
+  display: block;          
+  margin: 20px auto;       
+  padding: 10px 20px;  
+  border: none;     
+  border-radius: 10px;                 
+  background-color: #63bcbe; 
+  cursor: pointer;         
+  font-size: 16px;
+}
+
+.loginButton:hover{
+  background-color: #fff281;
+}
 #Signup {
   size: 100px;
 }
 #SignupButton {
   display: block;          
   margin: 20px auto;       
-  padding: 10px 20px;      
-  border-radius: 10px;     
-  border: none;            
+  padding: 10px 20px;  
+  border: none;     
+  border-radius: 10px;                 
   background-color: #63bcbe; 
   cursor: pointer;         
   font-size: 16px;
+}
+
+#SignupButton:hover{
+  background-color: White;
 }
 #Opening_Times {
   display: block;          
@@ -125,22 +153,10 @@ p {
   font-size: 16px;
 }
 #Opening_Times:hover{
-  background: grey;
-}
-#SignupButton {
-  display: block;          
-  margin: 20px auto;       
-  padding: 10px 20px;      
-  border-radius: 10px;     
-  border: none;            
-  background-color: #63bcbe; 
-  cursor: pointer;         
-  font-size: 16px;
-}
-#SignupButton:hover{
-  background: grey;
+  background-color: #fff281;
 }
 
+}
 /* End of Buttons */
 
 /* Background */
@@ -224,13 +240,22 @@ p {
   align-items: center;
   justify-content: center;
   text-align: center;
+  border-radius: 30px;
+  padding: 2px;
 }
 .item img {
   border-radius: 30px;
   width: 300px;
   height: 300px;
   object-fit: cover;
+  border: 2px solid transparent;
 }
+
+.item img:hover{
+  border-color: #63bcbe;
+  border-width: 2px;
+}
+
 .item .item-label {
   font-size: 20px;
   margin-top: 10px;
@@ -519,6 +544,7 @@ p {
     font-size: 28px;
   }
 }
+
 /* end of store content */
 
 /* membership content */
@@ -567,7 +593,6 @@ p {
   height: 50px;
   background-color: #63bcbe;
   border-radius: 100px;
-  border: none;
   font-size: 25px;
 }
 .subscribe:hover {
@@ -683,21 +708,32 @@ p {
 #prevImage {        
   margin: 20px auto;       
   padding: 10px 20px;      
-  border-radius: 100px;     
-  border: 30px;            
+  border-radius: 100px;                
   background-color: #63bcbe; 
   cursor: pointer;         
   font-size: 16px;
+  border: 2px solid transparent;
+}
+#prevImage:hover {    
+  border-color: #ffffff;
+  background-color: White;
 }
 #nextImage {
   margin: 20px auto;       
   padding: 10px 20px;      
-  border-radius: 100px;     
-  border: 30px;            
+  border-radius: 100px;            
   background-color: #63bcbe; 
   cursor: pointer;         
   font-size: 16px;
+  border: 2px solid transparent;
+  
 }
+
+#nextImage:hover{
+  border-color: #ffffff;
+  background-color: White;
+}
+
 /* end of image carousel */
 
 /* signup content */
@@ -1007,5 +1043,12 @@ footer .socials {
   max-height: 350px;
   width: 600px;
   height: 350px;
+  border-radius: 25px;
+  border: 2px solid transparent
+}
+
+#slide:hover{
+  border-color: #63bcbe;
+  border-width: 2px;
 }
 /* end of slide */
