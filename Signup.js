@@ -113,7 +113,7 @@ function validatePayment(event) {
 
     // all fields valid = submission allowed
     if (isValid) {
-        alert("Payment successful")
+        openTransaction();
         // clear memberships
         memberships = [];
         updatePurchase();
@@ -144,4 +144,14 @@ function displayError(errorId, msg) {
 function inputError(inputId) {
     const inputField = document.getElementById(inputId);
     inputField.style.border = "1px solid #fff281";  // highlights error fields
+}
+
+// successful payment alert
+function openTransaction() {
+    const sucPay = document.getElementById("sp");
+    sucPay.classList.add("open");
+}
+function closeTransaction() {
+    const sucPay = document.getElementById("sp");
+    sucPay.classList.remove("open");
 }
