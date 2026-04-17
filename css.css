@@ -53,6 +53,7 @@
   z-index: 999;
 }
 .dropdown:hover .Drop_down_content { display: block; }
+
 /* Dropdown items */
 .Drop_down_content a {
   padding: 10px 12px;
@@ -70,12 +71,10 @@ height: 90px;
 width: auto;
 display: inline-block;
 }
-
 .Button a:hover{
   background-color: Grey;
   outline-color: #63bcbe;
 }
-
 /* Navbar End */
 
 /* Main Body content */
@@ -110,7 +109,6 @@ p {
 /* End of main body content */
 
 /* Buttons */
-
 .loginButton{
   display: block;          
   margin: 20px auto;       
@@ -121,7 +119,6 @@ p {
   cursor: pointer;         
   font-size: 16px;
 }
-
 .loginButton:hover{
   background-color: #fff281;
 }
@@ -138,7 +135,6 @@ p {
   cursor: pointer;         
   font-size: 16px;
 }
-
 #SignupButton:hover{
   background-color: White;
 }
@@ -154,8 +150,6 @@ p {
 }
 #Opening_Times:hover{
   background-color: #fff281;
-}
-
 }
 /* End of Buttons */
 
@@ -250,12 +244,10 @@ p {
   object-fit: cover;
   border: 2px solid transparent;
 }
-
 .item img:hover{
   border-color: #63bcbe;
   border-width: 2px;
 }
-
 .item .item-label {
   font-size: 20px;
   margin-top: 10px;
@@ -290,6 +282,7 @@ p {
 .add-cart img {
   width: 30px;
   height: 25px;
+  border: none;
 }
 /* shopping basket btn */
 .cart {
@@ -339,14 +332,14 @@ p {
   top: 0;
   right: 0;
   height: 100%;
-  width: 100%;  /* mobile default */
-  max-width: 500px; /* desktop width */
+  width: 100%;
+  max-width: 500px;
   background-color: #000;
   border-left: 1px solid #63bcbe;
   display: flex;
   flex-direction: column;
-  transform: translateX(100%);  /* hidden initially */
-  opacity: 0;
+  transform: translateX(100%);
+  opacity: 0; /* hidden initially */
   transition: transform 0.5s ease, opacity 0.5s ease;
   z-index: 999;
 }
@@ -470,7 +463,7 @@ p {
   width: 23px;
   height: 23px;
 }
-/* payment */
+/* payment form */
 .payment {
   display: flex;
   flex-direction: column;
@@ -503,6 +496,11 @@ p {
   outline: none;
   border: 1px solid #63bcbe;
 }
+.payment input:disabled {
+  border: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
 .error-msg {
   color: #fff281;
   font-size: 14px;
@@ -527,24 +525,11 @@ p {
   cursor: pointer;
   background-color: #fff281;
 }
-/* responsive adjustments */
-@media screen and (max-width: 768px) {
-  .basket {
-    width: 100%;
-    max-width: 100%;
-    transform: translateY(-100%); /* slides from top on mobile */
-  }
-  .basket.open {
-    transform: translateY(0);
-  }
-  .basket-items {
-    flex-direction: column;
-  }
-  .basket h2 {
-    font-size: 28px;
-  }
+.checkout:disabled {
+  background-color: #383838;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
-
 /* end of store content */
 
 /* membership content */
@@ -728,12 +713,10 @@ p {
   border: 2px solid transparent;
   
 }
-
 #nextImage:hover{
   border-color: #ffffff;
   background-color: White;
 }
-
 /* end of image carousel */
 
 /* signup content */
@@ -788,7 +771,7 @@ p {
 .signup-col {
   display: flex;
   flex-direction: column;
-  width: 48%;
+  width: 700px;
   align-items: center;
   gap: 10px;
 }
@@ -957,6 +940,11 @@ p {
   outline: none;
   border: 1px solid #63bcbe;
 }
+.payment-frm input:disabled {
+  border: none;
+  background-color: #0a0a0a;
+  cursor: not-allowed;
+}
 .payment-frm .error-msg {
   color: #fff281;
   font-size: 14px;
@@ -1046,7 +1034,6 @@ footer .socials {
   border-radius: 25px;
   border: 2px solid transparent
 }
-
 #slide:hover{
   border-color: #63bcbe;
   border-width: 2px;

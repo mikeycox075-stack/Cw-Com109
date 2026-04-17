@@ -1,16 +1,33 @@
 let memberships = [];
 
+// save membership being purchased
+function saveMembership() {
+    localStorage.setItem("memberships", JSON.stringify(memberships));
+}
+// load memberships on page load
+window.onload = function () {
+    const savedMemberships = localStorage.getItem("memberships");
+    if (savedMemberships) {
+        memberships = JSON.parse(savedMemberships);
+    }
+    updatePurchase();
+};
+
 // membership being purchased (one at a time)
 function addMembership(tier, cost) {
     memberships[0] = {tier, cost};
     updatePurchase();
+    saveMembership();
 }
 function removeMembership(tier) {
     memberships = memberships.filter(membership => membership.tier !== tier);
     updatePurchase();
+    saveMembership();
 }
 function updatePurchase() {
     const membershipPurchased = document.getElementById("membership-purchased");
+    const paymentFrm = document.getElementById("payment-frm");
+    const checkoutBtn = document.querySelector(".checkout");
 
     membershipPurchased.innerHTML = "";
 
@@ -39,16 +56,28 @@ function updatePurchase() {
         li.appendChild(removeBtn);
         membershipPurchased.appendChild(li);
     });
+
+    // disable payment frm if no membership being purchased
+    if (memberships.length === 0) {
+        paymentFrm.querySelectorAll("input", "button").forEach(field => field.disabled = true);
+        checkoutBtn.disabled = true;
+        paymentFrm.reset(); // empties all input fields
+        clearErrorMsgs();
+        clearInputErrors();
+    } else {
+        paymentFrm.querySelectorAll("input", "button").forEach(field => field.disabled = false);
+        checkoutBtn.disabled = false;
+    }
 }
 
 // payment form validation
 function validatePayment(event) {
     event.preventDefault(); // prevents submission if invalid
 
-    clearErrorMsgs();   // clears previous error msgs
-    clearInputErrors(); // clears highlighted input fields
+    clearErrorMsgs();       // clears previous error msgs
+    clearInputErrors();     // clears highlighted input fields
 
-    let isValid = true; // form valid by default
+    let isValid = true;     // form valid by default
 
     const cardName = document.getElementById("cname").value.trim();
     const cardNum = document.getElementById("cnum").value.trim();
@@ -56,8 +85,8 @@ function validatePayment(event) {
     const cvv = document.getElementById("cvv").value.trim();
     // format checks
     const cardNumPattern = /^\d{4}-\d{4}-\d{4}-\d{4}$/;     // 1111-1111-1111-1111
-    const expDatePattern = /^(0[1-9]|1[1-2])\/\d{2}$/;    // MM/YY
-    const cvvPattern = /^\d{3}$/;   // 3 digits
+    const expDatePattern = /^(0[1-9]|1[1-2])\/\d{2}$/;      // MM/YY
+    const cvvPattern = /^\d{3}$/;                           // 3 digits
 
     // presence check
     if (cardName === "") {
@@ -85,6 +114,11 @@ function validatePayment(event) {
     // all fields valid = submission allowed
     if (isValid) {
         alert("Payment successful")
+        // clear memberships
+        memberships = [];
+        updatePurchase();
+        // clear payment frm
+        document.getElementById("payment-frm").reset();
     }
     else {
         return false;
@@ -92,7 +126,7 @@ function validatePayment(event) {
 }
 function clearErrorMsgs() {
     const errorMsgs = document.querySelectorAll(".error-msg");
-    errorMsgs.forEach(msg => {  // goes through each error msg
+    errorMsgs.forEach(msg => {      // goes through each error msg
         msg.style.display = "none"; // hides error msg
     });
 }
@@ -109,5 +143,5 @@ function displayError(errorId, msg) {
 }
 function inputError(inputId) {
     const inputField = document.getElementById(inputId);
-    inputField.style.border = "1px solid #fff281";
+    inputField.style.border = "1px solid #fff281";  // highlights error fields
 }

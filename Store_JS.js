@@ -9,17 +9,18 @@ window.onload = function() {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
         cart = JSON.parse(savedCart);
-        updateCart();
     }
+    updateCart();
 };
+
 // updating cart
 function addItem(name, price, imageSrc) {
     const product = cart.find(item => item.name === name);
 
     if (product) {
-        product.qty += 1;   // if item found in cart
+        product.qty += 1;                           // if item found in cart
     } else {
-        cart.push({name, price, imageSrc, qty: 1});   // if item not in cart
+        cart.push({name, price, imageSrc, qty: 1}); // if item not in cart
     }
     updateCart();
     saveCart();
@@ -32,7 +33,9 @@ function removeItem(name) {
 function updateCart() {
     const cartItems = document.getElementById("cart-items");
     const cartTotal = document.getElementById("cart-total");
-    const cartIcon = document.querySelector(".cart");
+    const cartIcon = document.querySelector(".cart");       
+    const paymentFrm = document.getElementById("payment");
+    const checkoutBtn = document.querySelector(".checkout");
 
     cartItems.innerHTML = "";
     let total = 0;      // cart total
@@ -95,8 +98,17 @@ function updateCart() {
     if (totalQty > 0) {
         badge.textContent = totalQty;
         badge.style.display = 'flex';   // badge = visible
+        // payment frm & checkout btn enabled
+        paymentFrm.querySelectorAll("input", "button").forEach(field => field.disabled = false);
+        checkoutBtn.disabled = false;
     } else {
         badge.style.display = 'none';   // badge invisible = no items in cart
+        // payment frm & checkout btn disbaled
+        paymentFrm.querySelectorAll("input", "button").forEach(field => field.disabled = true);
+        checkoutBtn.disabled = true;
+        paymentFrm.reset(); // empties all input fields
+        clearErrorMsgs();
+        clearInputErrors();
     }
 }
 // opening/closing cart
@@ -113,10 +125,10 @@ function closeCart() {
 function validateForm(event) {
     event.preventDefault(); // prevents submission if invalid
 
-    clearErrorMsgs();   // clears previous error msgs
-    clearInputErrors(); // clears highlighted input fields
+    clearErrorMsgs();       // clears previous error msgs
+    clearInputErrors();     // clears highlighted input fields
 
-    let isValid = true; // form valid by default
+    let isValid = true;     // form valid by default
 
     const fname = document.getElementById("fname").value.trim();
     const address = document.getElementById("address").value.trim();
@@ -127,11 +139,10 @@ function validateForm(event) {
     const expDate = document.getElementById("expdate").value.trim();
     const cvv = document.getElementById("cvv").value.trim();
     // format checks
-    const postCodePattern = /^BT\d{1,2}\s\d{1}[a-zA-Z]{2}$/i;   // BT00 0LL/BT0 0LL
-    const cardNumPattern = /^\d{4}-\d{4}-\d{4}-\d{4}$/;   // 1111-1111-1111-1111
-    //const expDatePattern = /^0[1-9]|1[1-2]\/\d{2}$/;    // MM/YY
-    const expDatePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
-    const cvvPattern = /^\d{3}$/;   // 3 digits
+    const postCodePattern = /^BT\d{1,2}\s\d{1}[a-zA-Z]{2}$/;    // BT00 0LL/BT0 0LL
+    const cardNumPattern = /^\d{4}-\d{4}-\d{4}-\d{4}$/;         // 1111-1111-1111-1111
+    const expDatePattern = /^0[1-9]|1[1-2]\/\d{2}$/;            // MM/YY
+    const cvvPattern = /^\d{3}$/;                               // 3 digits
 
     // presence checks
     if (fname === "") {
@@ -182,6 +193,13 @@ function validateForm(event) {
     // all fields valid = submission allowed
     if (isValid) {
         alert("Payment has been successful");
+        // clear cart
+        cart = [];
+        updateCart();
+        saveCart();
+        // clear payment frm
+        document.getElementById("payment").reset();
+        closeCart();
         return true;
     } else {
         return false;
@@ -189,7 +207,7 @@ function validateForm(event) {
 }
 function clearErrorMsgs() {
     const errorMsgs = document.querySelectorAll(".error-msg");
-    errorMsgs.forEach(msg => {  // goes through each error msg
+    errorMsgs.forEach(msg => {      // goes through each error msg
         msg.style.display = "none"; // hides error msg
     });
 }
